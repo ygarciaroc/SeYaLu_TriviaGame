@@ -1,0 +1,119 @@
+//chat gpt base code
+#include <stdio.h>
+#include <string.h>
+
+// Function prototypes
+void displayRules();
+void askQuestion(const char *question, const char *options[], char correctOption, int *score, int *wrongAnswers);
+int checkAnswer(char userAnswer, char correctAnswer);
+void displayScore(int score);
+
+#define MAX_POINTS 10   // Maximum points to restart the game
+#define MAX_WRONG 3     // Maximum wrong answers to end the game
+
+int main() {
+    int score = 0;            // Player's score
+    int wrongAnswers = 0;     // Count of wrong answers
+    char playAgain;           // Option to restart the game
+
+    // Display game rules
+    displayRules();
+
+    // Game loop
+    do {
+        // Array of questions and answers
+        const char *questions[] = {
+            "What is the capital of France?",
+            "Which planet is known as the Red Planet?",
+            "What is 5 + 7?",
+            "Who wrote 'To Kill a Mockingbird'?"
+        };
+
+        const char *options[][4] = {
+            {"A. Berlin", "B. Madrid", "C. Paris", "D. Rome"},
+            {"A. Earth", "B. Mars", "C. Jupiter", "D. Venus"},
+            {"A. 10", "B. 11", "C. 12", "D. 13"},
+            {"A. Harper Lee", "B. Mark Twain", "C. Ernest Hemingway", "D. J.K. Rowling"}
+        };
+
+        const char correctAnswers[] = {'C', 'B', 'C', 'A'};
+
+        // Loop through questions
+        for (int i = 0; i < 4; ++i) {
+            askQuestion(questions[i], options[i], correctAnswers[i], &score, &wrongAnswers);
+
+            // Check if game should end
+            if (score >= MAX_POINTS) {
+                printf("\nCongratulations! You reached the maximum score!\n");
+                break;
+            }
+            if (wrongAnswers >= MAX_WRONG) {
+                printf("\nGame Over! You reached the maximum wrong answers.\n");
+                break;
+            }
+        }
+
+        // Display final score
+        displayScore(score);
+
+        // Ask if player wants to play again
+        if (score >= MAX_POINTS || wrongAnswers >= MAX_WRONG) {
+            printf("\nDo you want to play again? (Y/N): ");
+            scanf(" %c", &playAgain);
+            if (playAgain == 'Y' || playAgain == 'y') {
+                score = 0;        // Reset score
+                wrongAnswers = 0; // Reset wrong answers
+            }
+        } else {
+            playAgain = 'N'; // Exit loop if player finishes all questions
+        }
+
+    } while (playAgain == 'Y' || playAgain == 'y');
+
+    printf("\nThank you for playing!\n");
+    return 0;
+}
+
+// Function to display game rules
+void displayRules() {
+    printf("Welcome to the Trivia Game!\n");
+    printf("Rules:\n");
+    printf("1. Answer the questions by typing the letter of your choice (A, B, C, or D).\n");
+    printf("2. Earn points for each correct answer. Reach %d points to win!\n", MAX_POINTS);
+    printf("3. The game ends if you answer %d questions incorrectly.\n\n", MAX_WRONG);
+}
+
+// Function to ask a question and process the answer
+void askQuestion(const char *question, const char *options[], char correctOption, int *score, int *wrongAnswers) {
+    char userAnswer;
+
+    // Display the question and options
+    printf("%s\n", question);
+    for (int i = 0; i < 4; ++i) {
+        printf("%s\n", options[i]);
+    }
+
+    // Get the player's answer
+    printf("Your answer: ");
+    scanf(" %c", &userAnswer);
+
+    // Check the answer
+    if (checkAnswer(userAnswer, correctOption)) {
+        printf("Correct!\n");
+        (*score)++; // Increment score for correct answer
+    } else {
+        printf("Wrong! The correct answer was %c.\n", correctOption);
+        (*wrongAnswers)++; // Increment wrong answer count
+    }
+    printf("\n");
+}
+
+// Function to check if the player's answer is correct
+int checkAnswer(char userAnswer, char correctAnswer) {
+    return (userAnswer == correctAnswer);
+}
+
+// Function to display the current score
+void displayScore(int score) {
+    printf("Your final score is: %d\n", score);
+}
