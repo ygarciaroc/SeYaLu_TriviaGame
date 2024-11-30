@@ -21,6 +21,10 @@ int main() {
     return 0;
 }
 
+/////////////////////////////////////////////////////////////
+//                     DYNAMIC MENU                        //
+/////////////////////////////////////////////////////////////
+
 // Function to display the main menu
 void showMenu() {
     int choice;
@@ -56,6 +60,10 @@ void showMenu() {
     }
 }
 
+/////////////////////////////////////////////////////////////
+//                     GAME RULES                          //
+/////////////////////////////////////////////////////////////
+
 // Function to show "How to Play" information
 void showHowToPlay() {
     printf("\nHow to Play:\n");
@@ -71,6 +79,10 @@ void showHowToPlay() {
     showMenu();  // Go back to the main menu
 }
 
+/////////////////////////////////////////////////////////////
+//                    RULES INTEGRATION                    //
+/////////////////////////////////////////////////////////////
+
 // Function to show the game rules
 void showRules() {
     printf("\nRules:\n");
@@ -85,6 +97,10 @@ void showRules() {
     getchar();  // Wait for user input
     showMenu();  // Go back to the main menu
 }
+
+/////////////////////////////////////////////////////////////
+//                  CATEGORY SELECTION                     //
+/////////////////////////////////////////////////////////////
 
 // Function to start the game
 void startGame() {
@@ -172,6 +188,10 @@ void startGame() {
     }
 }
 
+/////////////////////////////////////////////////////////////
+//                     TRIVIA QUESTIONS                    //
+/////////////////////////////////////////////////////////////
+
 // Function to ask a question, return 1 for correct answer, 0 for incorrect
 int askQuestion(const char *question, const char *choices[], int correctAnswer) {
     int answer;
@@ -203,6 +223,10 @@ int askQuestion(const char *question, const char *choices[], int correctAnswer) 
     printf("Game Over! You've used all attempts for this question.\n");
     return 0; // Incorrect after all attempts
 }
+
+/////////////////////////////////////////////////////////////
+//           REPLAYABILITY/GAME TERMINATION                //
+/////////////////////////////////////////////////////////////
 
 // Function to print the final score
 void printResults(int score) {
