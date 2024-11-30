@@ -1,0 +1,233 @@
+//successful code
+// finished on 11/30/2024 - Yamilet Rocha
+// comments - Luis
+// debugging - Sergio
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function prototypes
+void showMenu();
+void startGame();
+void showRules();
+int askQuestion(const char *question, const char *choices[], int correctAnswer);
+void printResults(int correctAnswers, int mistakes);
+void chooseCategory();
+void playCategory(const char *category, const char *questions[], const char *choices[][4], const int answers[], int numQuestions);
+
+// Main entry point for the program
+int main() {
+    showMenu();
+    return 0;
+}
+
+// Function to display the main menu
+void showMenu() {
+    int choice;
+
+    printf("Welcome to the Trivia Game!\n");
+    printf("1. Start Game\n");
+    printf("2. How to Play and Rules\n");
+    printf("3. Exit\n");
+    printf("Please choose an option (1-3): ");
+    scanf("%d", &choice);
+
+    // Clear the input buffer
+    while (getchar() != '\n');
+
+    switch (choice) {
+        case 1:
+            chooseCategory();
+            break;
+        case 2:
+            showRules();
+            break;
+        case 3:
+            printf("Goodbye!\n");
+            exit(0);
+            break;
+        default:
+            printf("Invalid choice. Please choose again.\n");
+            showMenu();
+            break;
+    }
+}
+
+// Function to show the "How to Play" and rules information
+void showRules() {
+    printf("\nHow to Play:\n");
+    printf("1. Answer trivia questions from various categories.\n");
+    printf("2. You have 3 mistakes allowed. After the third mistake, it's game over.\n");
+    printf("3. The game ends immediately after 5 correct answers.\n");
+
+    printf("\nRules:\n");
+    printf("1. Choose one of the four options for each question.\n");
+    printf("2. Each correct answer advances you closer to winning.\n");
+    printf("3. Answer carefully, as mistakes will reduce your chances.\n");
+
+    printf("\nPress Enter to return to the main menu.\n");
+    getchar();  // to capture the Enter key
+    showMenu();
+}
+
+// Function to start the trivia game by selecting a category
+void chooseCategory() {
+    int categoryChoice;
+
+    printf("\nChoose a Category:\n");
+    printf("1. General Knowledge\n");
+    printf("2. Science\n");
+    printf("3. History\n");
+    printf("4. Sports\n");
+    printf("Please select a category (1-4): ");
+    scanf("%d", &categoryChoice);
+
+    // Clear the input buffer
+    while (getchar() != '\n');
+
+    switch (categoryChoice) {
+        case 1: {
+            const char *questions[] = {
+                "What is the capital of France?",
+                "Which country won the FIFA World Cup in 2018?",
+                "Who painted the Mona Lisa?",
+                "What is the chemical formula for water?",
+                "What is the largest planet in the Solar System?"
+            };
+            const char *choices[][4] = {
+                {"1. Paris", "2. Rome", "3. Madrid", "4. Berlin"},
+                {"1. Brazil", "2. Germany", "3. France", "4. Argentina"},
+                {"1. Vincent van Gogh", "2. Leonardo da Vinci", "3. Pablo Picasso", "4. Claude Monet"},
+                {"1. H2O", "2. CO2", "3. NaCl", "4. O2"},
+                {"1. Earth", "2. Mars", "3. Jupiter", "4. Saturn"}
+            };
+            const int answers[] = {1, 3, 2, 1, 3};
+            playCategory("General Knowledge", questions, choices, answers, 5);
+            break;
+        }
+        case 2: {
+            const char *questions[] = {
+                "Which element has the chemical symbol 'O'?",
+                "What is the speed of light in a vacuum (approximately)?",
+                "What is the square root of 64?",
+                "What is the primary gas found in Earth's atmosphere?",
+                "What is the chemical symbol for gold?"
+            };
+            const char *choices[][4] = {
+                {"1. Oxygen", "2. Hydrogen", "3. Carbon", "4. Nitrogen"},
+                {"1. 3x10^8 m/s", "2. 5x10^8 m/s", "3. 1x10^6 m/s", "4. 7x10^9 m/s"},
+                {"1. 6", "2. 8", "3. 7", "4. 9"},
+                {"1. Oxygen", "2. Carbon Dioxide", "3. Nitrogen", "4. Argon"},
+                {"1. Au", "2. Ag", "3. Pb", "4. Fe"}
+            };
+            const int answers[] = {1, 1, 2, 3, 1};
+            playCategory("Science", questions, choices, answers, 5);
+            break;
+        }
+        case 3: {
+            const char *questions[] = {
+                "In which year did the Titanic sink?",
+                "Who was the first President of the United States?",
+                "Which war was fought between the North and South regions of the United States?",
+                "What year did World War II end?",
+                "Who discovered America in 1492?"
+            };
+            const char *choices[][4] = {
+                {"1. 1912", "2. 1905", "3. 1918", "4. 1921"},
+                {"1. Abraham Lincoln", "2. Thomas Jefferson", "3. George Washington", "4. John Adams"},
+                {"1. Revolutionary War", "2. Civil War", "3. World War I", "4. Korean War"},
+                {"1. 1941", "2. 1945", "3. 1950", "4. 1939"},
+                {"1. Christopher Columbus", "2. Ferdinand Magellan", "3. Marco Polo", "4. Leif Erikson"}
+            };
+            const int answers[] = {1, 3, 2, 2, 1};
+            playCategory("History", questions, choices, answers, 5);
+            break;
+        }
+        case 4: {
+            const char *questions[] = {
+                "Which country hosted the 2020 Summer Olympics?",
+                "Who holds the record for the most goals in soccer history?",
+                "What is the regulation height of a basketball hoop?",
+                "How many players are there on a soccer team?",
+                "What is the term for scoring three goals in a hockey game?"
+            };
+            const char *choices[][4] = {
+                {"1. Japan", "2. Brazil", "3. USA", "4. China"},
+                {"1. Pelé", "2. Cristiano Ronaldo", "3. Lionel Messi", "4. Diego Maradona"},
+                {"1. 9 feet", "2. 10 feet", "3. 11 feet", "4. 12 feet"},
+                {"1. 9", "2. 10", "3. 11", "4. 12"},
+                {"1. Hat-trick", "2. Double-play", "3. Triple Crown", "4. Slam Dunk"}
+            };
+            const int answers[] = {1, 2, 2, 3, 1};
+            playCategory("Sports", questions, choices, answers, 5);
+            break;
+        }
+        default:
+            printf("Invalid choice. Returning to main menu.\n");
+            showMenu();
+            break;
+    }
+}
+
+// Function to play a specific category
+void playCategory(const char *category, const char *questions[], const char *choices[][4], const int answers[], int numQuestions) {
+    printf("\nStarting %s Category\n", category);
+    int correctAnswers = 0;
+    int mistakes = 0;
+
+    for (int i = 0; i < numQuestions; i++) {
+        printf("\nQuestion %d:\n", i + 1);
+        int result = askQuestion(questions[i], choices[i], answers[i]);
+
+        if (result == 1) {
+            correctAnswers++;
+            if (correctAnswers == 5) {
+                printf("\nCongratulations! You answered 5 questions correctly. You win the %s category!\n", category);
+                break;
+            }
+        } else {
+            mistakes++;
+            printf("Incorrect! Total mistakes: %d\n", mistakes);
+            if (mistakes == 3) {
+                printf("\nGame Over! You made 3 mistakes in the %s category.\n", category);
+                break;
+            }
+        }
+    }
+
+    // Print final results
+    printResults(correctAnswers, mistakes);
+    showMenu();
+}
+
+// Function to ask a question
+int askQuestion(const char *question, const char *choices[], int correctAnswer) {
+    int playerAnswer;
+
+    printf("%s\n", question);
+    for (int i = 0; i < 4; i++) {
+        printf("%s\n", choices[i]);
+    }
+
+    printf("Enter your answer (1-4): ");
+    scanf("%d", &playerAnswer);
+
+    // Clear the input buffer
+    while (getchar() != '\n');
+
+    if (playerAnswer == correctAnswer) {
+        printf("Correct!\n");
+        return 1;
+    } else {
+        printf("Wrong answer!\n");
+        return 0;
+    }
+}
+
+// Function to display the final results
+void printResults(int correctAnswers, int mistakes) {
+    printf("\nGame Over!\n");
+    printf("You answered %d questions correctly.\n", correctAnswers);
+    printf("You made %d mistakes.\n", mistakes);
+    printf("Thank you for playing!\n");
+}
