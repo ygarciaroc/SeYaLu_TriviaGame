@@ -1,5 +1,5 @@
 // trivia with a point system and different categories
-// start date: 11/25/2024
+// finish date: 11/25/2024
 // authors: luis, sergio, yamilet
 
 #include <stdio.h>
